@@ -64,13 +64,16 @@
        clojure.string/split-lines
        (map #(clojure.string/split %1 #","))))
 
-(def part1 (second (sort (map mdist (apply clojure.set/intersection
-                                           (map (comp set trace-wire) input))))))
+(defn make-traces []
+  (map trace-wire input))
 
-(def part2 (second (sort (apply find-steps-to-cross
-                                (map (comp index-trace trace-wire) input)))))
+(defn part1 [] (second (sort (map mdist (apply clojure.set/intersection
+                                           (map set (make-traces)))))))
+
+(defn part2 [] (second (sort (apply find-steps-to-cross
+                                (map index-trace (make-traces))))))
 
 (defn -main
   []
-  (do (println (str "Part 1: " part1))
-      (println (str "Part 2: " part2))))
+  (do (println (str "Part 1: " (part1)))
+      (println (str "Part 2: " (part2)))))
