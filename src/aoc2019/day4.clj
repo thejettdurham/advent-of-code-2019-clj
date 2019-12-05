@@ -1,17 +1,18 @@
 (ns aoc2019.day4
-  (:require [aoc2019.utils :as utils]))
+  (:require [aoc2019.utils :as utils]
+            [clojure.string :as s]))
 
 (def input
   (->> "day4.txt"
        utils/read-res-file
-       (#(clojure.string/split %1 #"-"))
+       (#(s/split %1 #"-"))
        (map read-string)))
 
 (defn get-rng [x y] (range x (inc y)))
 (def pwd-rng (apply get-rng input))
 
 (defn explode-num [x]
-  (map read-string (clojure.string/split (str x) #"")))
+  (map read-string (s/split (str x) #"")))
 
 (defn combine-adjacent [input]
   (->> input (partition-by identity) (map first)))
