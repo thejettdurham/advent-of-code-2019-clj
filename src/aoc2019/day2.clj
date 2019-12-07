@@ -1,14 +1,6 @@
 (ns aoc2019.day2
   (:require [aoc2019.utils :as utils]))
 
-; Source - https://stackoverflow.com/a/18248031/11882366
-(defn cartesian [colls]
-  (if (empty? colls)
-    '(())
-    (for [more (cartesian (rest colls))
-          x (first colls)]
-      (cons x more))))
-
 (defn make-instrs [in] (partition 4 in))
 
 (defn parse-instr
@@ -38,7 +30,7 @@
 
 (def part1 (run-pgm-for-input 12 2))
 
-(def nvs (cartesian [(range 0 100) (range 0 100)]))
+(def nvs (utils/cartesian [(range 0 100) (range 0 100)]))
 (def part2 (reduce (fn [acc [n v]]
                      (let [out (run-pgm-for-input n v)]
                        (if
