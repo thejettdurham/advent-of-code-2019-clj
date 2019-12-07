@@ -42,10 +42,12 @@
 (defn run-cpu
   "Runs the cpu for a given input and starting value"
   ([code inputVals]
-   "If shortCircuit specified, returns
-   [nil output] if normal output (opC 4)
-   [output] if halted output (opC 99)"
+   "Simple case, doesn't support pausing, returns the last output when machine halts"
    (run-cpu 0 code inputVals false))
+  ([ip code inputVals]
+   "More robust case, allows the machine to be restarted later
+   Supports pausing, yields collected outputs and [ip mem] to be fed back in later"
+   (run-cpu ip code inputVals true))
   ([ip0 code inputVals pause?]
    (loop [ip ip0
           mem (vec code)

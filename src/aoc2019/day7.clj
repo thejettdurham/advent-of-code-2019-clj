@@ -24,7 +24,7 @@
          activeMachine 0]
     (let [mIn (nth machineInputs activeMachine)
           [mIp mCode] (nth machineStates activeMachine)
-          [output nextState] (intcode/run-cpu mIp mCode mIn true)
+          [output nextState] (intcode/run-cpu mIp mCode mIn)
           nextMach (mod (inc activeMachine) 5)
           nextInputs (update (assoc machineInputs activeMachine []) nextMach #(into % output))]
       (if (and (nil? nextState) (= activeMachine 4)) (first output)
