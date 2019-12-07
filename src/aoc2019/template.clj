@@ -3,7 +3,6 @@
             [clojure.string :as s]))
 
 (def input
-  "text input mapped to seq of ints"
   (->> "dayN.txt"
        utils/read-res-file
        clojure.string/split-lines
