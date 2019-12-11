@@ -13,20 +13,12 @@
      (identical? op \D) [x0 (- y0 dist)]
      )))
 
-(defn interp-points
-  "Generates an ordered seq of 1-points between x0 and x1"
-  [x0 x1]
-  (cond
-    (== x0 x1) (cons x0 ())
-    ; The inc/dec on the first term ensures we don't duplicate initCoord later
-    (> x1 x0) (range (inc x0) (inc x1))
-    :else (range (dec x0) (dec x1) -1)))
 
 (defn interpolate
   "Generates an ordered seq of 2-points between xy0 and xy1"
   [[x0 y0] [x1 y1]]
-  (let [xs (interp-points x0 x1)
-        ys (interp-points y0 y1)]
+  (let [xs (utils/interp-points x0 x1)
+        ys (utils/interp-points y0 y1)]
     (for [x xs y ys]
      [x y])))
 

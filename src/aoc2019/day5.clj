@@ -9,8 +9,8 @@
        (#(s/split %1 #","))
        (map read-string)))
 
-(defn part1 [] (intcode/run-cpu input [1]))                            ; 6745903
-(defn part2 [] (intcode/run-cpu input [5]))                            ; 9168267
+(defn part1 [] (last (intcode/run-cpu input [1])))          ; 6745903
+(defn part2 [] (last (intcode/run-cpu input [5])))          ; 9168267
 
 (defn -main
   []

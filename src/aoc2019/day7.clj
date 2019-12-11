@@ -23,15 +23,15 @@
          machineStates [[0 input] [0 input] [0 input] [0 input] [0 input]]
          activeMachine 0]
     (let [mIn (nth machineInputs activeMachine)
-          [mIp mCode] (nth machineStates activeMachine)
-          [output nextState] (intcode/run-cpu mIp mCode mIn)
+          [mIp mCode mRB] (nth machineStates activeMachine)
+          [output nextState] (intcode/run-cpu mIp mCode mRB mIn)
           nextMach (mod (inc activeMachine) 5)
           nextInputs (update (assoc machineInputs activeMachine []) nextMach #(into % output))]
       (if (and (nil? nextState) (= activeMachine 4)) (first output)
                  (recur nextInputs (assoc machineStates activeMachine nextState) nextMach)))))
 
 (defn part1 [] (apply max (map #(reduce (fn [acc phase]
-                                (intcode/run-cpu input [phase acc])) 0 %) phases-1)))
+                                          (last (intcode/run-cpu input [phase acc]))) 0 %) phases-1)))
 
 (defn part2 [] (apply max (map #(run-feedback input %) phases-2)))
 

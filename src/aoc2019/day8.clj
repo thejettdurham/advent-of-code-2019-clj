@@ -13,10 +13,6 @@
                                         (sort-by #(get % 0) #(compare %1 %2)
                                                  (map frequencies input))) 0))))
 
-(defn print-px
-  [px]
-  (if (= px 0) "▓" "░"))
-
 (defn resolve-pixel
   [bot top]
   (if (= 2 top) bot top))
@@ -27,7 +23,7 @@
             (map resolve-pixel acc nextLayer)) (first in) (next in)))
 
 (defn part2 [] (s/join "\n" (map s/join
-                     (partition 25 (map print-px (resolve-layers (reverse input)))))))
+                     (partition 25 (map utils/print-px (resolve-layers (reverse input)))))))
 
 (defn -main
   []
