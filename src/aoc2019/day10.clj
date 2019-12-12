@@ -93,8 +93,7 @@
          (group-by :theta)
          (sort-by first)
          ; map over each group
-         ; Take the list of polar coords
-         ; sort by radius ascending (shortest line to longest line)
+         ; Take the listZxZX ascending (shortest line to longest line)
          ; get the asteroid for that coordinate
          (map (comp (partial map :asteroid) (partial sort-by :r) second)))))
 

@@ -40,3 +40,29 @@
 (defn print-px
   [px]
   (if (= px 0) "▓" "░"))
+
+; Source https://www.rosettacode.org/wiki/Strip_a_set_of_characters_from_a_string#Clojure
+(defn strip [coll chars]
+  (apply str (remove #((set chars) %) coll)))
+
+; Source https://stackoverflow.com/a/18319708/11882366
+(defn vec-remove
+  "remove elem in coll"
+  [coll pos]
+  (vec (concat (subvec coll 0 pos) (subvec coll (inc pos)))))
+
+(defn abs
+  [x]
+  (Math/abs x))
+
+; https://rosettacode.org/wiki/Least_common_multiple#Clojure
+(defn gcd
+  [a b]
+  (if (zero? b)
+    a
+    (recur b, (mod a b))))
+(defn lcm
+  [a b]
+  (/ (* a b) (gcd a b)))
+;; to calculate the lcm for a variable number of arguments
+(defn lcmv [& v] (reduce lcm v))
