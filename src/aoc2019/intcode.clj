@@ -38,6 +38,7 @@
                                                      (parse-cplx-op opCR relBase))
             xZ (if zRel? (+ rZ relBase) rZ)
             xX (if xRel? (+ rX relBase) rX)]
+        ;(println xGtr rX)
         (cond
           (= opC 1) [1 (+ 4 ip) [(xGtr mem rX) (yGtr mem rY) xZ]]
           (= opC 2) [2 (+ 4 ip) [(xGtr mem rX) (yGtr mem rY) xZ]]
@@ -68,6 +69,7 @@
      (let [[opC nextIp [x y rZ]] (calc-op-vals mem ip relBase)
            shouldPause (and pause? (= opC 3) (nil? inputs))
            shouldHaltPause (and pause? (= opC 99))]
+       ;(println opC rZ x y)
        (cond
          shouldHaltPause [(reverse output) nil]
          shouldPause [(reverse output) [ip mem relBase]]
@@ -78,6 +80,10 @@
          (= opC 4) (recur nextIp mem (conj output x) inputs relBase)
          (= opC 5) (recur (if (not= 0 x) y nextIp) mem output inputs relBase)
          (= opC 6) (recur (if (= 0 x) y nextIp) mem output inputs relBase)
-         (= opC 7) (recur nextIp (utils/assoc-at mem rZ (if (< x y) 1 0)) output inputs relBase)
+         (= opC 7) (recur nextIp
+                          (utils/assoc-at mem rZ (if (< x y) 1 0))
+                          output
+                          inputs
+                          relBase)
          (= opC 8) (recur nextIp (utils/assoc-at mem rZ (if (= x y) 1 0)) output inputs relBase)
          (= opC 9) (recur nextIp mem output inputs (+ relBase x)))))))
