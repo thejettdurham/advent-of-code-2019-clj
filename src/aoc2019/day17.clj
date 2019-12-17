@@ -64,7 +64,11 @@
 ; - For each sublist, eliminate duplicates.
 ; - The sublist that has only 3 duplicates are your A, B, C
 ; - Go back to that sublist, and reduce it to movement instructions
-; - Build the selected sublist and movement instructions into strings.
+; - Build the selected sublist and movement instructions into strings
+;
+; Given how complicated that process sounds, there's gotta be a simpler insight I'm missing
+; That, or there is some trick that graphics programmers know that makes this more straightforward than I described.
+
 (defn part2 [] (let [inp (conj (rest input) 2)
                      moves (format-instr "A,B,A,C,A,B,C,A,B,C")
                      A (format-instr "R,12,R,4,R,10,R,12")
