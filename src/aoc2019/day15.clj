@@ -39,13 +39,6 @@
 ; When we hit the end of the path, add the number of steps to a list
 ; At the end of this process, the largest number in list of steps is part 2's answer
 
-(defn get-adjacent-points
-  [[x y]]
-  [[(inc x) y]
-   [(dec x) y]
-   [x (inc y)]
-   [x (dec y)]])
-
 (defn reject-seen-points
   [grid points]
   (filter #(not (contains? grid %)) points))
@@ -65,7 +58,7 @@
   (let [grid (atom {[0 0] 0})
         stepsToGoalAndPoint (atom [])]
     (letfn [(go [[ip mem relBase] coord steps]
-              (let [unseen-adj-points (reject-seen-points @grid (get-adjacent-points coord))
+              (let [unseen-adj-points (reject-seen-points @grid (utils/get-adjacent-points coord))
                     nexts (map (fn [pt] [pt
                                          (intcode/run-cpu ip mem relBase [(coords->instr coord pt)])]) unseen-adj-points)
                     nextCoord->output (into {} (map (fn [[coord [[out]]]] [coord out]) nexts))]
@@ -82,7 +75,7 @@
   (let [filled (atom #{init})
         endPaths (atom [])]
     (letfn [(go [coord steps]
-              (let [unseen-adj-points (reject-seen-points @filled (get-adjacent-points coord))
+              (let [unseen-adj-points (reject-seen-points @filled (utils/get-adjacent-points coord))
                     unseen-space-pts (reduce (fn [acc x] (let [val (grid x)]
                                                            (if (and (= 1 val) (not (nil? val)))
                                                              (conj acc x) acc))) '() unseen-adj-points)]

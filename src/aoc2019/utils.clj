@@ -66,3 +66,10 @@
   (/ (* a b) (gcd a b)))
 ;; to calculate the lcm for a variable number of arguments
 (defn lcmv [& v] (reduce lcm v))
+
+(defn get-adjacent-points
+  [[x y]]
+  [[(inc x) y]
+   [(dec x) y]
+   [x (inc y)]
+   [x (dec y)]])
