@@ -48,7 +48,7 @@
     (scan-col 38 true false)
     (scan-col 88 false false)
     (scan-col 126 true true)
-    ; map label to coords
+    ; map label to coords, also identify init and exit
     (let [lbl->coords (reduce (fn [acc [lbl coord]]
                                 (cond
                                   (= lbl "AA") (do (reset! init coord) acc)
