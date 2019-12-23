@@ -1,5 +1,5 @@
 (ns aoc2019.utils
-  (:require [clojure.java.io :as io] ))
+  (:require [clojure.java.io :as io]))
 
 ; Source - https://stackoverflow.com/a/18248031/11882366
 (defn cartesian [colls]
@@ -73,3 +73,10 @@
    [(dec x) y]
    [x (inc y)]
    [x (dec y)]])
+
+; https://rosettacode.org/wiki/Modular_exponentiation#Clojure
+(defn modpow
+  " b^e mod m (using Java which solves some cases the pure clojure method has to be modified to tackle--i.e. with large b & e and
+    calculation simplications when gcd(b, m) == 1 and gcd(e, m) == 1) "
+  [b e m]
+  (.modPow (biginteger b) (biginteger e) (biginteger m)))
